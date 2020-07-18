@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ドラクエ</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
+
+
+</head>
+
+<body>
+    <div id="monster">
+        <h1 id="monster-hp">HP:100</h1>
+        <img src='monster01.png' alt="">
+    </div>
+    <div id="text_box">
+        <h1 id="text">
+
+        </h1>
+    </div>
+    <div id="info">
+        <button id="attack">攻撃</button>
+        <h1 id="player-hp">あなたのHP:120</h1>
+    </div>
+
+    <script>
+        'use strict';
+
+        $(function () {
+
+
+
+            const monster = document.getElementById('monster');
+            const Box = document.getElementById('text_box');
+            const text = document.getElementById('text');
+            const attack = document.getElementById('attack');
+            const m_hp = document.getElementById('monster-hp');
+            const p_hp = document.getElementById('player-hp');
+
+            let monster_hp = 100;
+            let player_hp = 120;
+
+            function screenLock() {
+                var element = document.createElement('div');
+                element.id = "screenLock";
+
+                element.style.height = '100%';
+                element.style.left = '0px';
+                element.style.position = 'fixed';
+                element.style.top = '0px';
+                element.style.width = '100%';
+                element.style.zIndex = '9999';
+                element.style.opacity = '0';
+
+                var objBody = document.getElementsByTagName("body").item(0);
+                objBody.appendChild(element);
+            }
+
+            function screenUnLock() {
+                var screenLock = document.getElementById("screenLock");
+                screenLock.parentNode.removeChild(screenLock);
+            }
+
+         
+
+            function die() {
+                text.textContent('ゲームオーバー');
+            }
+
+
+            function text1() {
+                text.textContent = '敵1が現れた！';
+            }
+
+            monster.animate([{ opacity: '0' }, { opacity: '1' }], 2000);
+            screenLock();
+            setTimeout(text1, 1500);
+            setTimeout(screenUnLock,1600);
+
+            function attacked() {
+
+                $('#monster').addClass('move');
+
+
+                const p_damage = Math.floor(Math.random() * 40);
+
+                    player_hp -= p_damage;
+
+                if (p_damage === 0) {
+                    text.textContent = '敵が攻撃に失敗した！';
+
+                 }else if(player_hp <= 0) { 
+                    screenLock();
+                    text.textContent = '敵から自分に' + p_damage + 'のダメージ!';
+                     p_hp.textContent = 'あなたのHP:0'; 
+                     function finish() {
+                    text.textContent = '死んでしまった！情けねえぞ！';
+                
+                    }
+
+                     setTimeout(finish,1000);
+
+                } else {
+
+                    text.textContent = '敵から自分に' + p_damage + 'のダメージ!';
+
+
+                    p_hp.textContent = 'あなたのHP:' + player_hp;
+                }
+                function remove() {
+                    $('#monster').removeClass('move');
+                }
+
+                setTimeout(remove, 500);
+                setTimeout(screenUnLock,1000);
+
+            }
+
+
+
+            attack.onclick = function () {
+                screenLock();
+                const m_damage = Math.floor(Math.random() * 50);
+                    monster_hp -= m_damage;
+
+                if (m_damage === 0) {
+                    text.textContent = '攻撃に失敗してしまった！';
+                    setTimeout(attacked, 1300);
+                }else if(monster_hp <= 0) {
+                    screenLock();
+                    text.textContent = '敵1に' + m_damage + 'のダメージ!';
+                    function finish() {
+                    $('#monster').addClass('hide');
+                    text.textContent = '敵1を倒した！';
+                    }
+
+                    setTimeout(finish,1000);
+             
+                    
+                } else {
+
+                    text.textContent = '敵1に' + m_damage + 'のダメージ!';
+
+
+                    m_hp.textContent = 'HP:' + monster_hp;
+
+                    setTimeout(attacked, 1300);
+
+                }
+
+
+            }
+
+
+
+
+        });
+
+    </script>
+</body>
+
+</html>

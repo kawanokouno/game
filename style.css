@@ -1,0 +1,84 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    height: 100vh;
+    background-color: black;
+    color: white;
+}
+
+#monster-hp {
+    text-align: center;
+}
+
+#monster {
+    transition: all 0.2s;
+    
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+#text_box {
+    padding: 0 40px;
+    margin-top: 50px;
+    height: 250px;
+    background-color: black;
+    border: 6px solid white;
+    border-radius: 7px;
+}
+
+#text {
+    height: 150px;
+    margin-top: 50px;
+    text-align: center;
+    line-height: 150px;
+}
+
+#info {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+ 
+}
+
+#attack {
+    align-self: center;
+    
+}
+
+#player-hp {
+    margin-left: 20px;
+}
+
+.move {
+    transform: translateY(50px);
+}
+
+.hide  {
+    opacity: 0;
+}
+
+@media screen and (max-width: 480px) {
+
+
+    h1 {
+        font-size: 14px;
+    }
+
+    #text_box {
+        padding: 0 20px;
+        height: 100px;
+    }
+
+    #text {
+        height: 50px;
+        line-height: 50px;
+        margin-top: 25px;
+    }
+
+    img {
+        width: 40%;
+    }
+}
